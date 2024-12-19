@@ -1,23 +1,32 @@
 package com.example.artspace
 
+import android.graphics.Color
 import android.media.Image
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -47,6 +56,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ArtTimeLayout() {
 
+    val borderColor = colorResource(id = R.color.black)
+
     Column (
         modifier = Modifier
             .padding(horizontal = 40.dp),
@@ -62,11 +73,15 @@ fun ArtTimeLayout() {
                 .align(alignment = Alignment.CenterHorizontally)
 
         )
-        Image (
-            painter = painterResource(R.drawable._448_profilecover_1682290871382),
-            contentDescription = "asdsad",
-            modifier = Modifier
-        )
+
+            Image (
+                painter = painterResource(R.drawable._448_profilecover_1682290871382),
+                contentDescription = "asdsad",
+                modifier = Modifier
+                    .border(border = BorderStroke(width = 5.dp, color = colorResource(id = R.color.black)))
+
+            )
+
         Text (
             text = stringResource(R.string.author_name),
             style = TextStyle(
@@ -81,13 +96,13 @@ fun ArtTimeLayout() {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .padding(horizontal = 40.dp)
-                .fillMaxWidth(), //by using with .weight (on buttons modifiers) the buttons are the same size
+                .fillMaxWidth(),
         ) {
             Button(
                 onClick = { /*TODO: Wprowadź logikę kliknięcia tutaj */ },
                 modifier = Modifier
                     .padding(top = 16.dp)
-                    .weight(1f)
+                    .weight(1f) //by using with .weight (on buttons modifiers) the buttons are the same size
             ) {
                 Text(text = "Previous")
             }
