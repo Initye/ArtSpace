@@ -14,10 +14,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -56,47 +58,74 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ArtTimeLayout() {
 
-    val borderColor = colorResource(id = R.color.black)
-
     Column (
         modifier = Modifier
-            .padding(horizontal = 40.dp),
+            .padding(horizontal = 40.dp)
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text (
+        Text(
             text = stringResource(R.string.art_title),
             style = TextStyle(
                 fontWeight = FontWeight.Bold,//bold font
-                fontSize = 30.sp),
+                fontSize = 30.sp
+            ),
             modifier = Modifier
                 .align(alignment = Alignment.CenterHorizontally)
 
         )
 
-            Image (
+
+        Box(
+            modifier = Modifier
+                .wrapContentSize()
+        ) {
+//I HAVE NO IDEA HOW TO DO BLURRED BORDER AROUND IMAGE AS OF NOW
+//            val borderBlur = @Composable {
+//                Box(modifier = Modifier
+//                    .border(BorderStroke(5.dp, color = colorResource(R.color.black)))
+////                    .fillMaxSize()
+//                    .matchParentSize()
+////                    .blur(50.dp)
+//                )
+//            }
+//            borderBlur()
+
+            Image(
                 painter = painterResource(R.drawable._448_profilecover_1682290871382),
                 contentDescription = "asdsad",
                 modifier = Modifier
-                    .border(border = BorderStroke(width = 5.dp, color = colorResource(id = R.color.black)))
-
+                    .padding(5.dp)
+                    .border(
+                        border = BorderStroke(
+                            width = 2.dp,
+                            color = colorResource(id = R.color.black)
+                        )
+                    )
+                    .wrapContentSize()
+//                    .blur(5.dp)
             )
+        }
 
-        Text (
+
+        Text(
             text = stringResource(R.string.author_name),
             style = TextStyle(
                 fontWeight = FontWeight.Light,
-                fontSize = 17.sp),
+                fontSize = 17.sp
+            ),
             modifier = Modifier
                 .align(alignment = Alignment.CenterHorizontally)
         )
-
+    }
         Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp), //making space between buttons
-            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(50.dp), //making space between buttons
+            verticalAlignment = Alignment.Bottom,
             modifier = Modifier
-                .padding(horizontal = 40.dp)
-                .fillMaxWidth(),
+                .padding(horizontal = 40.dp, vertical = 25.dp)
+                .fillMaxWidth()
+                .fillMaxHeight()
         ) {
             Button(
                 onClick = { /*TODO: Wprowadź logikę kliknięcia tutaj */ },
@@ -115,8 +144,6 @@ fun ArtTimeLayout() {
                 Text(text = "Next")
             }
         }
-    }
-
 }
 
 @Preview(showBackground = true)
