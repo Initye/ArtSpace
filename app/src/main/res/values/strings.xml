@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Art Space</string>
-    <string name="art_title">Grizolandia</string>
-    <string name="author_name">Grizowski12</string>
+    <string name="art_title_1">Falling Life</string>
+    <string name="art_title_2">Cozy Night</string>
+    <string name="art_title_3">For someone you love</string>
+    <string name="art_title_4">Life Giver</string>
+    <string name="art_title_5">Harmony of purple</string>
+
+    <string name="author_name_1">Micheal Luthor</string>
+    <string name="author_name_2">Emory Cardenas</string>
+    <string name="author_name_3">Joe Sampson</string>
+    <string name="author_name_4">Nicolas Pineda</string>
+    <string name="author_name_5">Gwen Hughes</string>
 </resources>
