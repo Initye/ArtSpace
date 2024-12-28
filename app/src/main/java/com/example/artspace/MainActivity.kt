@@ -15,9 +15,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
-import androidx.compose.material3.Surface
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -36,13 +37,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.artspace.ui.theme.ArtSpaceTheme
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             ArtSpaceTheme {
-                Surface(
+                Box(
                     modifier = Modifier
                         .fillMaxSize(),
                 ) {
@@ -93,7 +95,8 @@ fun ArtTimeLayout() {
             text = "\"${stringResource(titleResource)}\"", //quotation marks
             style = TextStyle(
                 fontWeight = FontWeight.Bold,//bold font
-                fontSize = 30.sp
+                fontSize = 30.sp,
+                color = MaterialTheme.colorScheme.onSurface
             ),
             modifier = Modifier
                 .align(alignment = Alignment.CenterHorizontally)
@@ -101,10 +104,7 @@ fun ArtTimeLayout() {
         )
 
 
-        Box(
-            modifier = Modifier
-                .wrapContentSize()
-        ) {
+
 
 //I HAVE NO IDEA HOW TO DO BLURRED BORDER AROUND IMAGE AS OF NOW
 //            val borderBlur = @Composable {
@@ -125,20 +125,26 @@ fun ArtTimeLayout() {
 //        end = Offset(0.0f, 100.0f)
 //    )
 
+        Box(
+            modifier = Modifier
+                .size(500.dp) // Defines size of border and image
+                .border(
+                    border = BorderStroke(
+                        width = 2.dp,
+                        color = Color.Black
+                    )
+                )
+        ) {
             Image(
                 painter = painterResource(imageResource),
                 contentDescription = "",
                 modifier = Modifier
-                    .padding(5.dp)
-                    .border(
-                        border = BorderStroke(
-                            width = 2.dp,
-                            color = Color.Black
-                        )
-                    )
-                    .wrapContentSize()
+                    .fillMaxSize(),
+                contentScale = ContentScale.Crop // Crop image so it aligns to box, not perfect = results in cropping image content
             )
         }
+
+
 
         Text(
             text = stringResource(authorResource),
@@ -151,20 +157,21 @@ fun ArtTimeLayout() {
         )
     }
         Row(
-            horizontalArrangement = Arrangement.spacedBy(50.dp), //making space between buttons
+            horizontalArrangement = Arrangement.SpaceBetween, //making spacebetween buttons
             verticalAlignment = Alignment.Bottom,
             modifier = Modifier
-                .padding(horizontal = 40.dp, vertical = 25.dp)
+                .padding(horizontal = 40.dp, vertical = 40.dp)
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
             Button(
                 onClick = {
-                        result = if (result > 1) result - 1 else 1
+                        result = if (result > 1) result - 1 else 1 //Cant go back further than 1
                 },
                 modifier = Modifier
                     .padding(top = 16.dp)
-                    .weight(1f) //by using with .weight (on buttons modifiers) the buttons are the same size
+                    .size(120.dp, 40.dp)
+                    //.weight(1f) //by using with .weight (on buttons modifiers) the buttons are the same size, however using space between with size is better on higher resolutions
             ) {
                 Text(text = "Previous")
             }
@@ -174,7 +181,8 @@ fun ArtTimeLayout() {
                 },
                 modifier = Modifier
                     .padding(top=16.dp)
-                    .weight(1f)
+                    .size(120.dp, 40.dp)
+                   // .weight(1f)
             ) {
                 Text(text = "Next")
             }
@@ -183,7 +191,7 @@ fun ArtTimeLayout() {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun ArtSpace() {
     ArtSpaceTheme {
         ArtTimeLayout()
     }
